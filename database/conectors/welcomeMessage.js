@@ -42,6 +42,10 @@ module.exports.welcomeMessage = async (member, bot) => {
 ┊ para que las demás personas te conozcan・${putEmoji(bot, "764154680582340618")}
 ╰
     `);
-
-    _SERVER_CHANNEL_.send(`**Hey ${_MEMBER} lee esto antes de aventurarte por el servidor!! 🍟 | Mundo Kyonax**`,_embed);
+try {
+  _SERVER_CHANNEL_.send(`**Hey ${_MEMBER} lee esto antes de aventurarte por el servidor!! 🍟 | Mundo Kyonax**`,_embed);
+} catch (error) {
+  console.log("No se pudo enviar el welcome. "+error)
+}
+    
 };

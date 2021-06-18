@@ -51,27 +51,18 @@ module.exports = class PenisCommand extends BaseCommand {
     let member = getMember(message, args[0]);
     const emoji = synchronous.emojiID[0].afirmado;
     //Validación cuando se escoje el 24 como respuesta - Envio de Mensaje al canal en el que se llamó
-    if (message.guild.id === synchronous.guildID) {
-      if (result === 24)
-        return message.channel.send(
-          `${putEmoji(bot, emoji)}El miembro de **${
-            member.username
-          }** es **infinito** ${replies[result]}`
-        );
-      message.channel.send(
-        `${putEmoji(
-          bot,
-          emoji
-        )} El miembro de **${member}** mide **${result}cm** ${replies[result]}`
+
+    if (result === 24)
+      return message.channel.send(
+        `${putEmoji(bot, emoji)}El miembro de **${
+          member.username
+        }** es **infinito** ${replies[result]}`
       );
-    } else {
-      if (result === 24)
-        return message.channel.send(
-          `✅ El miembro de **${member}** es **infinito** ${replies[result]}`
-        );
-      message.channel.send(
-        `✅ El miembro de **${member}** mide **${result}cm** ${replies[result]}`
-      );
-    }
+    message.channel.send(
+      `${putEmoji(
+        bot,
+        emoji
+      )} El miembro de **${member}** mide **${result}cm** ${replies[result]}`
+    );
   }
 };

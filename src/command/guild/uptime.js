@@ -25,15 +25,10 @@ module.exports = class UptimeCommand extends BaseCommand {
     //Emoji from Map
     let msg = null;
     const emoji = synchronous.emojiID[0].afirmado;
-    if (message.guild.id === synchronous.guildID) {
-      msg = await message.channel.send(
-        `${putEmoji(bot, emoji)} Calculando...`
-      );
-      embed.setTitle(`${putEmoji(bot, emoji)} Uptime`);
-    } else {
-      msg = await message.channel.send(`✅ Calculando...`);
-      embed.setTitle(`✅ Uptime`);
-    }
+
+    msg = await message.channel.send(`${putEmoji(bot, emoji)} Calculando...`);
+    embed.setTitle(`${putEmoji(bot, emoji)} Uptime`);
+
     function duration(ms) {
       const sec = Math.floor((ms / 1000) % 60).toString();
       const min = Math.floor((ms / (1000 * 60)) % 60).toString();

@@ -46,7 +46,7 @@ module.exports = class WhoisCommand extends BaseCommand {
       member.roles.cache
         .filter((r) => r.id !== message.guild.id)
         .map((r) => r)
-        .join(", ") || "none";
+        .join("\n ") || "none";
 
     const created = formatDate(member.user.createdAt);
     //Mensaje Embed
@@ -63,7 +63,7 @@ module.exports = class WhoisCommand extends BaseCommand {
         stripIndents`**Nombre:** ${member.displayName}
   **Ingreso al servidor:** ${joined}
   **Roles:** ${role}`,
-        true
+        false
       )
       .addField(
         "Información de Usuario",
@@ -71,14 +71,15 @@ module.exports = class WhoisCommand extends BaseCommand {
   **Nickname:** ${member.user.username}
   **Tag de Discord:** ${member.user.tag}
   **Usuario creado:** ${created}`,
-        true
+        false
       )
       .setTimestamp();
     const statatus = member.user.presence.activities;
-    let gameStatus = []
-    if (statatus) {
+    let gameStatus = []        
+    if (statatus.length > 0) {
       statatus.forEach((sts) => {
         gameStatus.push(sts.name)
+        console.log(gameStatus)
       });
       embed.addField("Jugando", `**> Juego:** ${gameStatus.join(" , ")}`);
     }

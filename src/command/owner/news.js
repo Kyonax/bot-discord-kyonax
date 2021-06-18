@@ -51,7 +51,7 @@ module.exports = class NewsCommand extends BaseCommand {
     description = contentArgs;
     //Embed
     const embed = new MessageEmbed()
-      .setColor(kyoColor)
+      .setColor("#22e2f0")
       .setTitle(tittle)
       .setDescription(description)
       .setTimestamp()
@@ -61,17 +61,17 @@ module.exports = class NewsCommand extends BaseCommand {
         `**Enviado desde ${message.channel}**`,
         true
       )
-      .setFooter("Central de Periodismo Synchronous News");
+      .setFooter("Central de Periodismo Mundo Kyonax");
       embed.attachFiles([
-        "database/multimedia/gifs/embeds/GIF_KyonaxComfyFort_BannerBarServer.gif",
+        "database/multimedia/gifs/embeds/BAR.gif",
       ]);
-      embed.setImage("attachment://GIF_KyonaxComfyFort_BannerBarServer.gif");
+      embed.setImage("attachment://BAR.gif");
       const serverChannel = message.guild.channels.cache.find(
-        (ch) => ch.name === "announcements"
+        (ch) => ch.name === "nuevos-anuncios"
       );
       if (!serverChannel) {
         return message.channel.send("El Mensaje no se ha podido enviar porque no se ha creado el canal para announcements")
       }
-      serverChannel.send(``+putEmoji(bot, "764154680350867457")+` **¡Nuevo anuncio | New Announcement! <@&779080288701382667>**`,embed).catch((err) => console.log(err));
+      serverChannel.send(``+putEmoji(bot, "780487068119859220")+` **¡Nuevo anuncio <@&779080288701382667>**`,embed).catch((err) => console.log(err));
   }
 };

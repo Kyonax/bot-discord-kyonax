@@ -61,6 +61,40 @@ module.exports = class ErrorConector extends BaseConector {
       msg.delete({ timeout: 20000, reason: "It had to be done." });
     });
   }
+  async noCorrectChannel(bot, message,channel) {
+    //Eliminación del Mensaje Enviado
+    message.delete().catch((O_o) => {});
+    //Inicialización de Variables prefix - emojiObject Map - Embed
+    const prefix = guildCommandPrefix.get(message.guild.id);
+    const emoji = synchronous.emojiID[0].cancelado;
+    let embed = new MessageEmbed().setColor(kyoColor);
+    //Validación Emojis de Guild
+    embed.addField(
+      `**Error de Comando** ${putEmoji(bot, emoji)}`,
+      `**Has ejecutado un comando en un canal incorrecto** si deseas poder usar el comando, dirígete al canal <#${channel}> y usa\n` +
+        "**Uso:** `" +
+        prefix +
+        "level`.\n**Opciones Admin:** `<user>`.",
+      false
+    );
+    //Agregación de Tipo de Conector y Nombre de Error
+    embed.addFields(
+      {
+        name: "CONECTOR",
+        value: `[${this.name.toUpperCase()}]`,
+        inline: true,
+      },
+      {
+        name: "NOMBRE DE ERROR",
+        value: "`noCorrectChannel(bot,message)`",
+        inline: true,
+      }
+    );
+    //Envío del Mensaje Embed y su autoeliminación en 20seg
+    message.channel.send(embed).then((msg) => {
+      msg.delete({ timeout: 20000, reason: "It had to be done." });
+    });
+  }
   //Error noCommandOrder Detectado - Prefix Error
   async noCmdOrderS(bot, message) {
     //Eliminación del Mensaje Enviado

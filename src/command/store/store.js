@@ -5,7 +5,7 @@ const {
   initObjectMember,
   numberWithCommas,
 } = require("../../utils/misc/functions");
-const { kyoColor } = require("../../../database/utils/color/color.json");
+const { kyoColor,noneColor } = require("../../../database/utils/color/color.json");
 const { synchronous } = require("../../../database/utils/emojis/emojis.json");
 const { stripIndents } = require("common-tags");
 //Importación de el cuerpo de Comandos e importación de Conexión Base de Datos
@@ -46,29 +46,25 @@ module.exports = class StoreCommand extends BaseCommand {
     //Inicialización de Emojis y su Uso respectivo
     //Inicialización de Emojis y su Uso respectivo
     let emojiSynkoins = putEmoji(bot, synchronous.emojiID[0].synkoin);
-    if (message.guild.id != synchronous.guildID) emojiSynkoins = "💰";
-    let boostb = putEmoji(bot, synchronous.emojiID[0].boostb);
-    if (message.guild.id != synchronous.guildID) boostb = "🔰";
-    let boosta = putEmoji(bot, synchronous.emojiID[0].boosta);
-    if (message.guild.id != synchronous.guildID) boosta = "🔰";
-    let boostp = putEmoji(bot, synchronous.emojiID[0].boostp);
-    if (message.guild.id != synchronous.guildID) boostp = "🔰";
+    let boostb = putEmoji(bot, synchronous.emojiID[0].boostb);    
+    let boosta = putEmoji(bot, synchronous.emojiID[0].boosta);    
+    let boostp = putEmoji(bot, synchronous.emojiID[0].boostp);    
     //Embed General que especifica la función de la Tienda
     let storeEmbed = new MessageEmbed()
-      .setTitle("Tienda Synchronous")
-      .setColor(kyoColor)
-      .setURL("https://www.instagram.com/kyotore/")
+      .setTitle("Tienda Mundo Kyonax !")
+      .setColor(noneColor)
+      .setURL("https://www.kyonax.com")
       .setDescription(
-        "En la tienda de **Instagram** tambien puedes canjear **merchandising de Synchronous**."
+        "**Puedes encontrar recursos, y mucho más contenido** en la tienda official de Kyonax."
       )
       .setAuthor(
-        "Synkstore",
+        "KYONAX STORE",
         "https://i.imgur.com/OXIkW3Q.png",
-        "https://www.instagram.com/kyotore/"
+        "https://www.kyonax.com"
       )
       .addField(
         "Elementos de canjeo de la Tienda",
-        "En esta sección podrás ver que objetos puedes **canjear** con **Synkoins** y que **comando** usar."
+        "En esta sección podrás ver que objetos puedes **canjear** con **Kyo Shinys** y que **comando** usar."
       )
       .addField("\u200b", "\u200b")
       .addField(
@@ -76,13 +72,13 @@ module.exports = class StoreCommand extends BaseCommand {
         `Con estos boost podrás subir de **Nivel** mucho más rápido por medio de sus **multiplicadores** de **Experiencia**: `
       )
       .addField("**#1** `pay boost base`", `${boostb} Boost **x10**`, true)
-      .addField("**Valor**", `**1,800 ${emojiSynkoins} Synkoins**`, true)
+      .addField("**Valor**", `**1,800 ${emojiSynkoins} Kyo Shinys**`, true)
       .addField("**Duración**", "**1000msj**", true)
       .addField("**#2** `pay boost avanzado`", `${boosta} Boost **x50**`, true)
-      .addField("**Valor**", `**3,200 ${emojiSynkoins} Synkoins**`, true)
+      .addField("**Valor**", `**3,200 ${emojiSynkoins} Kyo Shinys**`, true)
       .addField("**Duración**", "**3000msj**", true)
       .addField("**#3** `pay boost premium`", `${boostp} Boost **x100**`, true)
-      .addField("**Valor**", `**6,000 ${emojiSynkoins} Synkoins**`, true)
+      .addField("**Valor**", `**6,000 ${emojiSynkoins} Kyo Shinys**`, true)
       .addField("**Duración**", "**9000msj**", true)
       .addField("\u200b", "\u200b")
       .addField(
@@ -93,17 +89,17 @@ module.exports = class StoreCommand extends BaseCommand {
         `${message.author.username} te encuentras en el nivel **${actualAuthorLevel}**`,
         `**${numberWithCommas(
           levelPrice
-        )} ${emojiSynkoins} Synkoins** para subir de Nivel.`,
+        )} ${emojiSynkoins} Kyo Shinys** para subir de Nivel.`,
         true
       )
       .addField("\u200b", "\u200b", true)
       .addField(
         stripIndents`**> __Links__**`,
-        `\n \n[Synchronous Fanpage](https://facebook.com/SynchronousTeam) | [Comprar Synkoins](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5LY2Y46Q7DSWL&source=url)`
+        `\n \n[Twitch Kyonax](https://kyonax.link/twitch) | [Comprar Kyo Shinys](https://www.kyonax.link/donation)`
       )
       .setFooter(
-        "Recuerda que cuando haces un pago, se te retira dinero de tu cuenta, para saber cuanto dinero tienes usa el comando `s!bank`.",
-        "https://i.imgur.com/Cvb5ygL.png"
+        "Recuerda que cuando haces un pago, se te retira dinero de tu cuenta, para saber cuanto dinero tienes usa el comando `!bank`.",
+        bot.user.displayAvatarURL()
       )
       .setTimestamp();
 

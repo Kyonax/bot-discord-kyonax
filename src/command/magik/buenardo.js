@@ -45,17 +45,17 @@ module.exports = class BuenardoCommand extends BaseCommand {
     //Desición para identificar que imagen Colocar
     const imageMember = member.user.displayAvatarURL({
       format: "png",
-      dynamic: true,
+      dynamic: false,
       size: 1024,
     });
     downloadUser(imageMember, autor.id).then(() => {
-      delay(1300).then(async function () {
+      delay(300).then(async function () {
         edit(
           `database/multimedia/images/users/avatar/${autor.id}.png`,
           autor.id
         );
       });
-      return delay(2100).then(async function () {
+      return delay(1000).then(async function () {
         message.channel.send("", {
           files: [
             `database/multimedia/images/magik/exports/outputImage${autor.id}Buenardo.png`,

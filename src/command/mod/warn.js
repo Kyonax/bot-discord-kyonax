@@ -42,7 +42,7 @@ module.exports = class WarnCommand extends BaseCommand {
     );
     let reason = args.join(" ").slice(22);
     let warnChannel = message.guild.channels.cache.find(
-      (ch) => ch.name === "📯・warnings"
+      (ch) => ch.name === "💬・mod"
     );    
     let ObjectAutor = null;
     let ObjectMember = null;    

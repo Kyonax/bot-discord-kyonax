@@ -7,6 +7,7 @@ const {
 } = require("../../utils/misc/functions");
 const { generateXP, limitLevel } = require("../../utils/logic/logicMember");
 const { generateCoins } = require("../../utils/logic/logicBank");
+const { roleRewards } = require("../../../database/conectors/roleRewards");
 const {
   memberExist,
   insertMember,
@@ -46,14 +47,6 @@ module.exports = class MessageEvent extends BaseEvent {
     this.connection = StateManager.connection;
   }
   async run(bot, message) {
-    //Restricted Servers
-    switch (message.guild.id) {      
-      default:
-        if (message.member.id == "248204538941538308")break;
-        return;        
-    }
-    
-    
     //Reaction specific MessageEmbeds
     await reactionEmbeds(bot, message);
     //Attachment Message
@@ -61,6 +54,18 @@ module.exports = class MessageEvent extends BaseEvent {
     attachment.forEach((messageAttachment) => {
       attachMessageImage(messageAttachment);
     });
+    //Restricted Servers    
+    try {
+      switch (message.guild.id) {     
+        case "763464848457072701":
+          break;
+        default:
+          if (message.member.id == "248204538941538308")break;
+          return;        
+      }
+    } catch (error) {
+      console.log("Se ha registrado una interacción fuera de una Guild. ["+error+"]")
+    }            
     //No DMS no Bot Messages
     if (message.author.bot || message.channel.type === "dm") return;
     //Inicialización de Variables guildID - memeberID
@@ -73,17 +78,17 @@ module.exports = class MessageEvent extends BaseEvent {
     if (existMember.length === 0 || existMemberBank.length === 0) {
       await insertMember(guildID, userID)
         .then(() =>
-          console.log("Nuevo Usuario Agregado a la Tabla GuildMembers")
+          console.log("El Nuevo Usuario Agregado a la Tabla GuildMembers")
         )
         .catch((err) => console.log(err));
       await insertMemberMap(guildID, userID, guildMembers, guilds)
-        .then(() => console.log("Nuevo Usuario Agregado al Mapa GuildMembers"))
+        .then(() => console.log("El Nuevo Usuario Agregado al Mapa GuildMembers"))
         .catch((err) => console.log(err));
       await insertMemberBank(guildID, userID)
-        .then(() => console.log("Nuevo Usuario Agregado a la Tabla GuildBank"))
+        .then(() => console.log("El Nuevo Usuario Agregado a la Tabla GuildBank"))
         .catch((err) => console.log(err));
       await insertBankMemberMap(guildID, userID, guildMembersBank, bankGuilds)
-        .then(() => console.log("Nuevo Usuario Agregado al Mapa GuildBank"))
+        .then(() => console.log("El Nuevo Usuario Agregado al Mapa GuildBank"))
         .catch((err) => console.log(err));
       return;
     }
@@ -103,8 +108,29 @@ module.exports = class MessageEvent extends BaseEvent {
       message.guild.id,
       message.author.id
     );
+    if (!objectMember){
+      await insertMember(guildID, userID)
+        .then(() =>
+          console.log("Nuevo Usuario Agregado a la Tabla GuildMembers")
+        )
+        .catch((err) => console.log(err));
+      await insertMemberMap(guildID, userID, guildMembers, guilds)
+        .then(() => console.log("Nuevo Usuario Agregado al Mapa GuildMembers"))
+        .catch((err) => console.log(err));      
+      return;
+    }
+    if (!objectBankMember){
+      await insertMemberBank(guildID, userID)
+        .then(() => console.log("Nuevo Usuario Agregado a la Tabla GuildBank"))
+        .catch((err) => console.log(err));
+      await insertBankMemberMap(guildID, userID, guildMembersBank, bankGuilds)
+        .then(() => console.log("Nuevo Usuario Agregado al Mapa GuildBank"))
+        .catch((err) => console.log(err));
+      return;
+    }
     //Prefix del Servidor
     const prefix = guildCommandPrefix.get(message.guild.id);
+
     const digitPrefix = message.content.slice(0, prefix.length);
     if (digitPrefix === prefix) {
       const [cmdName, ...cmdArgs] = message.content
@@ -191,13 +217,7 @@ module.exports = class MessageEvent extends BaseEvent {
             const emojiF = putEmoji(bot, synchronous.emojiID[0].f);
             const emojiBoostB = putEmoji(bot, synchronous.emojiID[0].boostb);
             const emojiBoostA = putEmoji(bot, synchronous.emojiID[0].boosta);
-            const emojiBoostP = putEmoji(bot, synchronous.emojiID[0].boostp);
-            if (message.guild.id != synchronous.guildID) {
-              emojiF = "⛔";
-              emojiBoostB = "🔰";
-              emojiBoostA = "🔰";
-              emojiBoostP = "🔰";
-            }
+            const emojiBoostP = putEmoji(bot, synchronous.emojiID[0].boostp);            
             //Mensaje EMBED de se acabo el Boost
             const timeOutEmbed = new MessageEmbed()
               .setAuthor(
@@ -210,7 +230,7 @@ module.exports = class MessageEvent extends BaseEvent {
                 "**Plebeyo**",
                 `<@${message.author.id}> se terminó tu **boost** de experiencia`
               )
-              .setFooter("Caza Recompensas Internacionales de Synchronous")
+              .setFooter("Caza Recompensas Internacionales de Mundo Kyonax !")
               .setTimestamp()
               .setTitle(`**Boost Terminado** ${emojiF}`)
               .addField(
@@ -251,6 +271,7 @@ module.exports = class MessageEvent extends BaseEvent {
               })
               .catch((err) => console.log(err));
           }
+          roleRewards(message, bot, newLevel);
           const levelUpEmbed = new MessageEmbed()
             .setAuthor(message.author.username, bot.user.displayAvatarURL())
             .setColor(cleverColor)
@@ -260,7 +281,7 @@ module.exports = class MessageEvent extends BaseEvent {
               `<@${message.author.id}> alcanzó un nuevo **Nivel**.`
             )
             .addField("**Nivel Alcanzado**", `Nuevo nivel **${newLevel}**`)
-            .setFooter("Estadísticas de niveles Internacional de Synchronous")
+            .setFooter("Estadísticas de niveles Internacional de Mundo Kyonax !")
             .setTimestamp()
             .setTitle(
               `**Nivel Alcanzado** ${putEmoji(bot, emojiLevelUp)}`

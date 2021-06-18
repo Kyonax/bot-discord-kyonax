@@ -41,11 +41,11 @@ module.exports = class KickCommand extends BaseCommand {
     );
     let reason = args.join(" ").slice(22);
     let kickChannel = message.guild.channels.cache.find(
-      (ch) => ch.name === "❗❗-bans-kicks"
+      (ch) => ch.name === "💬・mod"
     );
     if (!kickChannel) {
       return message.guild.channels
-        .create("❗❗-bans-kicks", {
+        .create("💬・mod", {
           type: "text",
           permissionOverwrites: [
             {
@@ -70,7 +70,7 @@ module.exports = class KickCommand extends BaseCommand {
     if (!member) return err.noUserDigitKick(bot, message);
     if (!reason) return err.noReasonDigitKick(bot, message);
     if (member.id === autor.id) return err.noValidTargetKick(bot, message);
-    if (member.roles.cache.get("623715872506118154"))
+    if (member.roles.cache.get("766816088024940584"))
       return perm.cantCatchSynks(bot, message);
     //Inicialización de Emojis y su Uso respectivo
     let emoji = putEmoji(bot, synchronous.emojiID[0].warning);

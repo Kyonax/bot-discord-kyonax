@@ -75,7 +75,7 @@ module.exports = class MagikCommands extends BaseCommand {
     //Desicion para saber que imagen editar
     if (!member) {
       edit("database/multimedia/images/magik/lastImage.jpg", autor.id);
-      return delay(3000).then(function () {
+      return delay(1000).then(function () {
         message.channel.send("", {
           files: [
             `database/multimedia/images/magik/exports/outputImage${autor.id}Magik.png`,
@@ -85,17 +85,17 @@ module.exports = class MagikCommands extends BaseCommand {
     } else {
       const imageMember = member.user.displayAvatarURL({
         format: "png",
-        dynamic: true,
+        dynamic: false,
         size: 1024,
       });
       downloadUser(imageMember, autor.id).then(() => {
-        delay(1000).then(function () {
+        delay(300).then(function () {
           edit(
             `database/multimedia/images/users/avatar/${autor.id}.png`,
             autor.id
           );
         });
-        return delay(3000).then(function () {
+        return delay(1000).then(function () {
           message.channel.send("", {
             files: [
               `database/multimedia/images/magik/exports/outputImage${autor.id}Magik.png`,

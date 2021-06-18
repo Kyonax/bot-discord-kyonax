@@ -42,28 +42,57 @@ async function edit(
   rank,
   nickname
 ) {
-  circleImage(firstImage, name);
-  delay(1200).then(function () {
-    secondStep(background, xp, level, lastxp, name, userColor, rank, nickname);
-  });
-  delay(3000).then(function () {
-    thirdStep(secondImage, name);
-  });
+  const resultThird = await thirdStep(
+    secondImage,
+    name,
+    background,
+    xp,
+    level,
+    lastxp,
+    userColor,
+    rank,
+    nickname,
+    firstImage
+  );
 }
-async function thirdStep(inImage, name) {
-  imageMagick(
-    `database/multimedia/images/magik/exports/background${name}Text.png`
-  )
-    .resize(1000, 300)
-    .composite(inImage)
-    .in("-compose", "Over")
-    .in("-geometry", "200x200+43+50")
-    .write(
-      `database/multimedia/images/magik/exports/bar${name}Level.png`,
-      function (err) {
-        if (err) console.log("Error!: " + err);
-      }
-    );
+async function thirdStep(
+  inImage,
+  name,
+  background,
+  xp,
+  level,
+  lastxp,
+  userColor,
+  rank,
+  nickname,
+  firstImage
+) {
+  const resultSecond = await secondStep(
+    background,
+    xp,
+    level,
+    lastxp,
+    name,
+    userColor,
+    rank,
+    nickname,
+    firstImage
+  );
+  delay(2500).then(async function () {
+    imageMagick(
+      `database/multimedia/images/magik/exports/background${name}Text.jpg`
+    )
+      .resize(1000, 300)
+      .composite(inImage)
+      .in("-compose", "Over")
+      .in("-geometry", "200x200+43+50")
+      .write(
+        `database/multimedia/images/magik/exports/bar${name}Level.png`,
+        function (err) {
+          if (err) console.log("Error 3 Step!: " + err);
+        }
+      );      
+  });      
 }
 async function secondStep(
   inImage,
@@ -73,35 +102,37 @@ async function secondStep(
   name,
   userColor,
   rank,
-  nickname
+  nickname,
+  firstImage
 ) {
-  let sizeXP = 120;
-  if (xp.length > 8) {
-    sizeXP = 110;
-  }
-  gm(inImage)
-    .gravity("Center")
-    .fill(userColor)
-    .fontSize(180)
-    .drawText(-500 + nickname.length * 10 * 2, 450, `${nickname + ""}`, "North")
-    .fill(userColor)
-    .font("Helvetica-Bold", 160)
-    .drawText(1400, 450, `Nivel: ${level}`, "North")
-    .fill(userColor)
-    .fontSize(sizeXP)
-    .drawText(800, 1010, `${xp}xp / `, "North")
-    .fill("#212327")
-    .fontSize(sizeXP)
-    .drawText(1100 + lastxp.length * 12 * 4, 1010, `${lastxp}xp`, "North")
-    .fill("#212327")
-    .fontSize(120)
-    .drawText(-500, 1010, `Rank: #${rank}`, "North")
-    .write(
-      `database/multimedia/images/magik/exports/background${name}Text.png`,
-      function (err) {
-        if (err) console.log("Error!: " + err);
-      }
-    );
+  const resultCircle = await circleImage(firstImage, name);
+  delay(1000).then(async function () {
+    let sizeXP = 120;
+    if (xp.length > 8) {
+      sizeXP = 110;
+    }
+    gm(inImage)
+      .gravity("Center")
+      .fill(userColor)
+      .fontSize(160)
+      .drawText(-500 + nickname.length * 10 * 2, 450, `${nickname + ""}`, "North")
+      .font("Helvetica-Bold", 140)
+      .drawText(1400, 450, `Nivel: ${level}`, "North")
+      .fontSize(sizeXP)
+      .drawText(800, 1010, `${xp}xp / `, "North")
+      .fill("#18191C")
+      .fontSize(sizeXP)
+      .drawText(1100 + lastxp.length * 12 * 4, 1010, `${lastxp}xp`, "North")
+      .fill(userColor)
+      .fontSize(120)
+      .drawText(-500, 1010, `Rank: #${rank}`, "North")
+      .write(
+        `database/multimedia/images/magik/exports/background${name}Text.jpg`,
+        function (err) {
+          if (err) console.log("Error Second Step!: " + err);
+        }
+      );
+  });      
 }
 module.exports = class InventaryCommand extends BaseCommand {
   constructor() {
@@ -117,17 +148,22 @@ module.exports = class InventaryCommand extends BaseCommand {
   async run(bot, message, args) {
     //Eliminacion del mensaje enviado por el usuario al ejecutar el Comando
     message.delete().catch((O_o) => {});
+    //Creación de Objetos
+    const err = new Error();
+    const perm = new Perms();
+
+    const channelLevelUP = message.guild.channels.cache.find(
+      (ch) => ch.name === "📯・level-up"
+    );
+    if (message.channel.id !== "849365833327181874") return err.noCorrectChannel(bot,message,`849365833327181874`)
     //Inicialización de Variable de Usuario
     const member = getMember(message, args.join(" "));
     //Validación si en el Mensaje se usó un Usuario
     let memberImage = member.user.displayAvatarURL({
       format: "png",
       dynamic: false,
-      size: 1024,
-    });
-    //Creación de Objetos
-    const err = new Error();
-    const perm = new Perms();
+      size: 128,
+    });    
     let ObjectMember = null;
     let ObjectAutor = null;
     ObjectAutor = initObjectMember(
@@ -144,13 +180,8 @@ module.exports = class InventaryCommand extends BaseCommand {
     );
     if (ObjectMember === null)
       return err.noFindMember(bot, message, member.displayName);
-    const {
-      memberXP,
-      serverRank,
-      memberLevel,
-      memberBoost,
-      warnings,
-    } = ObjectMember;
+    const { memberXP, serverRank, memberLevel, memberBoost, warnings } =
+      ObjectMember;
     const { moderatorMember } = ObjectAutor;
     //Inicialización de Variables - Experiencia - Nivel - Boost
     let curxp = parseInt(memberXP);
@@ -164,44 +195,109 @@ module.exports = class InventaryCommand extends BaseCommand {
       if (moderatorMember !== 1) return perm.moderatorPerms(bot, message);
     }
     //BarLevel
-    if (curxp <= nxtLevel * 0.05) {
-      barPercnt = "Bar0.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
-    } else if (curxp <= nxtLevel * 0.1 && curxp > nxtLevel * 0.05) {
-      barPercnt = "Bar10.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
-    } else if (curxp <= nxtLevel * 0.2 && curxp > nxtLevel * 0.1) {
-      barPercnt = "Bar20.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
-    } else if (curxp <= nxtLevel * 0.3 && curxp > nxtLevel * 0.2) {
-      barPercnt = "Bar30.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
-    } else if (curxp <= nxtLevel * 0.4 && curxp > nxtLevel * 0.3) {
-      barPercnt = "Bar40.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
-    } else if (curxp <= nxtLevel * 0.5 && curxp > nxtLevel * 0.4) {
-      barPercnt = "Bar50.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
-    } else if (curxp <= nxtLevel * 0.6 && curxp > nxtLevel * 0.5) {
-      barPercnt = "Bar60.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
-    } else if (curxp <= nxtLevel * 0.7 && curxp > nxtLevel * 0.6) {
-      barPercnt = "Bar70.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
-    } else if (curxp <= nxtLevel * 0.8 && curxp > nxtLevel * 0.7) {
-      barPercnt = "Bar80.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
-    } else if (curxp <= nxtLevel * 0.9 && curxp > nxtLevel * 0.8) {
-      barPercnt = "Bar90.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
-    } else if (curxp > nxtLevel * 0.9) {
-      barPercnt = "Bar100.png";
-      background = `database/multimedia/images/BarLevel/${barPercnt}`;
+    let addBar = "none";
+    switch (true) {
+      case member.roles.cache.get("763467841181450251") != undefined:
+        addBar = "MR";
+        break;
+      case member.roles.cache.get("763468272003186706") != undefined:
+        addBar = "Synk";
+        break;
+      case member.roles.cache.get("766816088024940584") != undefined:
+        addBar = "Admin";
+        break;
+      case member.roles.cache.get("849496528020307989") != undefined:
+        addBar = "Twitch";
+        break;
+      case member.roles.cache.get("849674093242482708") != undefined:
+        addBar = "Premium";
+        break;
+      case member.roles.cache.get("776064895795855391") != undefined:
+        addBar = "GhostBooster";
+        break;
+      case member.roles.cache.get("849703338667802704") != undefined:
+        addBar = "Twitch";
+        break;
+      case member.roles.cache.get("767982547098533889") != undefined:
+        addBar = "Saitama";
+        break;
+      case member.roles.cache.get("767981783777804308") != undefined:
+        addBar = "God";
+        break;
+      case member.roles.cache.get("767981559037820990") != undefined:
+        addBar = "Legend";
+        break;
+      case member.roles.cache.get("767981086101209088") != undefined:
+        addBar = "Epic";
+        break;
+      case member.roles.cache.get("767980761537445909") != undefined:
+        addBar = "Insane";
+        break;
+      case member.roles.cache.get("767980541256925184") != undefined:
+        addBar = "Supreme";
+        break;
+      case member.roles.cache.get("767979647547211796") != undefined:
+        addBar = "Badass";
+        break;
+      case member.roles.cache.get("767979647547211796") != undefined:
+        addBar = "Great";
+        break;
+      default:
+        addBar = "Follower";
+        break;
     }
+
+    switch (true) {
+      case curxp <= nxtLevel * 0.05:
+        barPercnt = `Bar0${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+      case curxp <= nxtLevel * 0.1 && curxp > nxtLevel * 0.05:
+        barPercnt = `Bar10${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+      case curxp <= nxtLevel * 0.2 && curxp > nxtLevel * 0.1:
+        barPercnt = `Bar20${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+      case curxp <= nxtLevel * 0.3 && curxp > nxtLevel * 0.2:
+        barPercnt = `Bar30${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+      case curxp <= nxtLevel * 0.4 && curxp > nxtLevel * 0.3:
+        barPercnt = `Bar40${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+      case curxp <= nxtLevel * 0.5 && curxp > nxtLevel * 0.4:
+        barPercnt = `Bar50${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+      case curxp <= nxtLevel * 0.6 && curxp > nxtLevel * 0.5:
+        barPercnt = `Bar60${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+      case curxp <= nxtLevel * 0.7 && curxp > nxtLevel * 0.6:
+        barPercnt = `Bar70${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+      case curxp <= nxtLevel * 0.8 && curxp > nxtLevel * 0.7:
+        barPercnt = `Bar80${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+      case curxp <= nxtLevel * 0.9 && curxp > nxtLevel * 0.8:
+        barPercnt = `Bar90${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+      case curxp > nxtLevel * 0.9:
+        barPercnt = `Bar100${addBar}.png`;
+        background = `database/multimedia/images/barLevel/${barPercnt}`;
+        break;
+    }
+
     //Emoji
     //Inicialización de Emojis y su Uso respectivo
     let emojiLevelUp = putEmoji(bot, synchronous.emojiID[0].levelup);
-    let emojiWarning = putEmoji(bot, synchronous.emojiID[0].warning)
+    let emojiWarning = putEmoji(bot, "849849150974459944");
     let emojiBoost = null;
     const boostTime = parseInt(ObjectMember.memberBoost);
     if (boostTime === 1) {
@@ -219,16 +315,24 @@ module.exports = class InventaryCommand extends BaseCommand {
 
     //Mensaje para el Embed de Usuario para este Comando
     let embed = new MessageEmbed()
-      .setTitle(`**${member.displayName}'s Inventory**`)
+      .setTitle(`Inventario de **${member.displayName}**`)
       .setThumbnail("https://i.imgur.com/mylTtoH.png")
       .addField("**Usuario**", `**[${member.displayName}]**`, true)
       .addField("**Nivel**", `**${curlevel}** ${emojiLevelUp}`, true)
-      .addField("**XP**", `**${numberWithCommas(curxp)}XP**`, true)
-      .addField("**Rank**", `**#${currank}** ⚡`, true)
+      .addField(
+        "**XP**",
+        `**${numberWithCommas(curxp) + putEmoji(bot, "851538050252931132")}**`,
+        true
+      )
+      .addField(
+        "**Rank**",
+        `**#${currank + " " + putEmoji(bot, "851540791729324043")}**`,
+        true
+      )
       .addField("**Warnings**", `**${curwarnings}** ${emojiWarning}`, true)
       .addField(
         "**Boosts de Nivel**",
-        `**XP x ${curbost}** ${emojiBoost}`,
+        `**${putEmoji(bot, "851538050252931132")} x ${curbost}** ${emojiBoost}`,
         true
       )
       .attachFiles([
@@ -236,12 +340,12 @@ module.exports = class InventaryCommand extends BaseCommand {
       ])
       .setImage(`attachment://bar${message.author.id}Level.png`)
       .setColor(noneColor)
-      .setFooter("Gestor de Niveles internacional de Synchronous")
+      .setFooter("Gestor de Niveles Mundo Kyonax !")
       .setTimestamp();
     //Método de Descarga de Imágen
     downloadUser(memberImage, message.author.id).then(() => {
-      delay(1000).then(async function () {
-        edit(
+      delay(100).then(async function () {
+        const resultImageMagik = await edit(
           `/../../../database/multimedia/images/users/avatar/${message.author.id}.png`,
           `database/multimedia/images/users/circleAvatar/${message.author.id}CircleImage.png`,
           numberWithCommas(curxp) + "",
@@ -251,12 +355,11 @@ module.exports = class InventaryCommand extends BaseCommand {
           member.displayHexColor,
           currank + "",
           member.displayName
-        );
-      });
-      return delay(6000).then(async function () {
-        message.channel.send(embed).then((msg) => {
-          msg.delete({ timeout: 60000, reason: "It had to be done." });
-        });
+        ).then(() => {
+          delay(3000).then(async function () {
+            message.channel.send(`**<@${member.id}> ahora puedes ver tu Inventario del servidor!! **${putEmoji(bot,"775810514797985793")}`,embed);   
+          });    
+        })        
       });
     });
   }

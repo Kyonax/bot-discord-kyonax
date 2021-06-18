@@ -71,16 +71,16 @@ module.exports = class AddRoleCommand extends BaseCommand {
     let gRole = message.guild.roles.cache.find((rol) => rol.id === role);
     if (!gRole) return err.noRoleFound(bot, message, role);
     //Validaciones Permisos
-    if (role === "623715872506118154") return err.roleUnavaible(bot, message);
-    if (role === "623716123854110740")
+    if (role === "763468272003186706") return err.roleUnavaible(bot, message);
+    if (role === "816774149186912327")
       if (adminMember !== 1) return perm.synksPerms(bot, message);
-    if (role === "623716416721518592")
+    if (role === "763468279443357696")
       if (inmortalMember !== 1) return perm.inmortalPerms(bot, message);
     //Ejecución de AddRole
     if (member.roles.cache.has(gRole.id));
     await member.roles.add(gRole.id);
     //Agregando permisos a usuario en el Archivo Json
-    if (role == "623716123854110740") {
+    if (role == "766816088024940584") {
       try {
         await updateGuildInmortalMember(message.guild.id, member.id, 1);
       } catch (err) {
@@ -101,7 +101,7 @@ module.exports = class AddRoleCommand extends BaseCommand {
         1
       );
     }
-    if (role == "623716416721518592") {
+    if (role == "763468279443357696") {
       try {
         await updateGuildModeratorMember(message.guild.id, member.id, 1);
       } catch (err) {
@@ -116,13 +116,11 @@ module.exports = class AddRoleCommand extends BaseCommand {
       );
     }
     //Inicialización de Emojis y su Uso respectivo
-    let emojiRol = putEmoji(bot, synchronous.emojiID[0].rol);
-    if (message.guild.id != synchronous.guildID) emojiRol = "⚔";
-    let emojiAfirmado = putEmoji(bot, synchronous.emojiID[0].afirmado);
-    if (message.guild.id != synchronous.guildID) emojiAfirmado = "⚔";
+    let emojiRol = putEmoji(bot, synchronous.emojiID[0].rol);    
+    let emojiAfirmado = putEmoji(bot, synchronous.emojiID[0].afirmado);    
     //Mensaje Embed para el Comando
     let embed = new MessageEmbed()
-      .setTitle(`Synks Roles ${emojiAfirmado}`)
+      .setTitle(`Kyo Roles ${emojiAfirmado}`)
       .setDescription(`Se le ha otorgado un nuevo Rol a <@${member.id}>.`)
       .setColor(gRole.color)
       .addField("**Usuario**", `**[${member.displayName}]**`, true)

@@ -34,7 +34,7 @@ module.exports = class ClearCommand extends BaseCommand {
     //Inicialización de Párametros Member
     const { moderatorMember } = existMember[0];
     //Insuficientes Permisos para usar el Comando
-    
+    if (moderatorMember != 1) return perm.moderatorPerms(bot, message);
     //Emoji from Map
     const emoji = synchronous.emojiID[0].afirmado;
     if (!args[0]) {

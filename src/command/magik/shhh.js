@@ -143,7 +143,7 @@ async function edit(
   sPositionY
 ) {
   firstStep(masoUser, autor, back, fSize, fPositionX, fPositionY);
-  delay(1500).then(function () {
+  delay(800).then(function () {
     secondStep(sadoUser, autor, sSize, sPositionX, sPositionY);
   });
 }
@@ -164,7 +164,7 @@ async function doIt(
     downloadSadoMasoUser(
       sadoMasoUserMention.displayAvatarURL({
         format: "png",
-        dynamic: true,
+        dynamic: false,
         size: 1024,
       }),
       autor.username
@@ -181,7 +181,7 @@ async function doIt(
         sPositionX,
         sPositionY
       );
-      return delay(2000).then(function () {
+      return delay(1000).then(function () {
         message.channel.send("", {
           files: [
             `./database/multimedia/images/magik/exports/output${autor.id}ImageShhh.png`,
@@ -206,7 +206,7 @@ async function doIt(
         sPositionX,
         sPositionY
       );
-      return delay(2000).then(function () {
+      return delay(1000).then(function () {
         message.channel.send("", {
           files: [
             `./database/multimedia/images/magik/exports/output${autor.id}ImageShhh.png`,
@@ -279,13 +279,13 @@ module.exports = class ShhhCommand extends BaseCommand {
     downloadMasoUser(
       masoUserMention.user.displayAvatarURL({
         format: "png",
-        dynamic: true,
+        dynamic: false,
         size: 1024,
       }),
       autor.id
     );
     //Más Validaciones
-    delay(1000).then(function () {
+    delay(300).then(function () {
       doIt(
         autor,
         sadoMasoUserMention,

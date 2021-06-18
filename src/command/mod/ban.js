@@ -43,7 +43,7 @@ module.exports = class BanCommand extends BaseCommand {
     const perm = new Perms();
     //Inicialización de Variables - Canal - Usuario - Razón - Longitud - ID de Usuario
     let banChannel = message.guild.channels.cache.find(
-      (ch) => ch.name === "📯・warnings"
+      (ch) => ch.name === "💬・mod"
     );    
     let autor = message.author;
     let member = message.guild.member(
@@ -65,7 +65,7 @@ module.exports = class BanCommand extends BaseCommand {
     if (member.id === message.author.id)
       return err.noValidTargetBan(bot, message);
     if (!reason) return err.noReasonDigit(bot, message);
-    if (member.roles.cache.get("623715872506118154"))
+    if (member.roles.cache.get("766816088024940584"))
       return perm.cantCatchSynks(bot, message);    
     await insertMemberBans(
       message.guild.id,
@@ -81,8 +81,7 @@ module.exports = class BanCommand extends BaseCommand {
     await deleteMemberRolePlay(message.guild.id, member.id);
     deleteObjectMember(guilds, message.guild.id, member.id);
     //Inicialización de Emojis y su Uso respectivo
-    let emoji = putEmoji(bot, synchronous.emojiID[0].danger);
-    if (message.guild.id != synchronous.guildID) emoji = "⛔";
+    let emoji = putEmoji(bot, synchronous.emojiID[0].danger);    
     //Mensaje Embed para el Comando
     let embed = new MessageEmbed()
       .setColor(dangerColor)

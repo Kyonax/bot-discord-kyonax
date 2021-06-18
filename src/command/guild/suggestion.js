@@ -33,7 +33,7 @@ module.exports = class WhoisCommand extends BaseCommand {
     //Creación EMBED
     //Creación del Mensaje Embed del Comando
     let embed = new MessageEmbed()
-      .setTitle(`**${autor.displayName}'s Suggestion 🧠**`)
+      .setTitle(`**${autor.displayName}'s Sugerencia 🧠**`)
       .setThumbnail(message.guild.iconURL())
       .setDescription(`${text}`)
       .setColor(kyoColor)
@@ -46,11 +46,11 @@ module.exports = class WhoisCommand extends BaseCommand {
       .setFooter("Sugerencias de miembros del Servidor")
       .setTimestamp();
     const serverChannel = message.guild.channels.cache.find(
-      (ch) => ch.name === "📯・suggestions"
+      (ch) => ch.name === "📯・sugerencias"
     );
     if (!serverChannel) {
       return message.guild.channels
-        .create("📯・suggestions", {
+        .create("📯・sugerencias", {
           type: "text",
           permissionOverwrites: [
             {

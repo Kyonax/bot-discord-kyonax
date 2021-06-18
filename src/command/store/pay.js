@@ -1,5 +1,6 @@
 //Importación especifica de Metodos - RichEmbed - getMember putEmoji Functions - Errors - kyocolor Colors - synkoin Emoji
 const { MessageEmbed } = require("discord.js");
+const { roleRewards } = require("../../../database/conectors/roleRewards");
 const {
   getMember,
   putEmoji,
@@ -54,7 +55,7 @@ module.exports = class PayCommand extends BaseCommand {
       .setTitle(`**${member.displayName}'s Bank**`)
       .setColor(goldColor)
       .setThumbnail("https://i.imgur.com/OXIkW3Q.png")
-      .setFooter("Banco Internacional de Synchronous")
+      .setFooter("Banco Internacional Mundo Kyonax ! ")
       .setTimestamp();
     //Creación de Objeto Bank Member
     let ObjectBankMember = null;
@@ -128,16 +129,16 @@ module.exports = class PayCommand extends BaseCommand {
       if (args[3]) reason = `, ${args.slice(3).join(" ")}`;
       //Agregación al Embed
       embed.setDescription(
-        `<@${autor.id}> ha transferido **Synkoins a** <@${member.id}>${reason}.`
+        `<@${autor.id}> ha transferido **Kyo Shinys a** <@${member.id}>${reason}.`
       );
       embed.addField(
         "**Monto de la Transferencia**",
-        `**${numberWithCommas(args[2])} ${emoji} Synkoins**`,
+        `**${numberWithCommas(args[2])} ${emoji} Kyo Shinys**`,
         true
-      );
+      );      
       embed.addField(
-        `**Fondos Restantes de ${autor.username}**`,
-        `**${numberWithCommas(updateACoins)} ${emoji} Synkoins.**`,
+        `**Fondos Restantes de ${autor.nickname}**`,
+        `**${numberWithCommas(updateACoins)} ${emoji} Kyo Shinys.**`,
         true
       );
     } else if (type.toLowerCase() === "boost") {
@@ -203,11 +204,9 @@ module.exports = class PayCommand extends BaseCommand {
         );
         //Emojis
         //Inicialización de Emojis y su Uso respectivo
-        const emojiBoostB = putEmoji(bot, synchronous.emojiID[0].boostb);
-        if (message.guild.id != synchronous.guildID) emojiBoostB = "🔰";
+        const emojiBoostB = putEmoji(bot, synchronous.emojiID[0].boostb);        
         //Inicialización de Emojis y su Uso respectivo
-        const emojiSynkoins = putEmoji(bot, synchronous.emojiID[0].synkoin);
-        if (message.guild.id != synchronous.guildID) emojiSynkoins = "💰";
+        const emojiSynkoins = putEmoji(bot, synchronous.emojiID[0].synkoin);        
         //Mensaje Embed
         embed.addField(
           "**Boost Canjeado**",
@@ -215,11 +214,11 @@ module.exports = class PayCommand extends BaseCommand {
         );
         embed.addField(
           "**Dinero Canjeado**",
-          `**${numberWithCommas(boostB)}** ${emojiSynkoins} **Synkoins.**`
+          `**${numberWithCommas(boostB)}** ${emojiSynkoins} **Kyo Shinys.**`
         );
         embed.addField(
           `**Fondos Restantes de ${autor.displayName}**`,
-          `**${numberWithCommas(updateACoins)} ${emojiSynkoins} Synkoins.**`,
+          `**${numberWithCommas(updateACoins)} ${emojiSynkoins} Kyo Shinys.**`,
           true
         );
       } else if (args[1] === "avanzado") {
@@ -260,11 +259,9 @@ module.exports = class PayCommand extends BaseCommand {
         );
         //Emojis
         //Inicialización de Emojis y su Uso respectivo
-        const emojiBoostA = putEmoji(bot, synchronous.emojiID[0].boosta);
-        if (message.guild.id != synchronous.guildID) emojiBoostA = "🔰";
+        const emojiBoostA = putEmoji(bot, synchronous.emojiID[0].boosta);        
         //Inicialización de Emojis y su Uso respectivo
-        const emojiSynkoins = putEmoji(bot, synchronous.emojiID[0].synkoin);
-        if (message.guild.id != synchronous.guildID) emojiSynkoins = "💰";
+        const emojiSynkoins = putEmoji(bot, synchronous.emojiID[0].synkoin);        
         //Mensaje Embed
         embed.addField(
           "**Boost Canjeado**",
@@ -272,11 +269,11 @@ module.exports = class PayCommand extends BaseCommand {
         );
         embed.addField(
           "**Dinero Canjeado**",
-          `**${numberWithCommas(boostA)}** ${emojiSynkoins} **Synkoins**`
+          `**${numberWithCommas(boostA)}** ${emojiSynkoins} **Kyo Shinys**`
         );
         embed.addField(
           `**Fondos Restantes de ${autor.displayName}**`,
-          `**${numberWithCommas(updateACoins)} ${emojiSynkoins} Synkoins.**`,
+          `**${numberWithCommas(updateACoins)} ${emojiSynkoins} Kyo Shinys.**`,
           true
         );
       } else if (args[1] === "premium") {
@@ -329,12 +326,12 @@ module.exports = class PayCommand extends BaseCommand {
           "**Dinero Canjeado**",
           `**${numberWithCommas(
             boostPremium
-          )}** ${emojiSynkoins} **Synkoins.**`,
+          )}** ${emojiSynkoins} **Kyo Shinys.**`,
           true
         );
         embed.addField(
           `**Fondos Restantes de ${autor.displayName}**`,
-          `**${numberWithCommas(updateACoins)} ${emojiSynkoins} Synkoins.**`,
+          `**${numberWithCommas(updateACoins)} ${emojiSynkoins} Kyo Shinys.**`,
           true
         );
       }
@@ -390,7 +387,7 @@ module.exports = class PayCommand extends BaseCommand {
       const emojiLevelUp = putEmoji(bot, synchronous.emojiID[0].levelup);      
       //Inicialización de Emojis y su Uso respectivo
       const emojiSynkoins = putEmoji(bot, synchronous.emojiID[0].synkoin);      
-      //Mensaje Embed Level
+      //Mensaje Embed Level      
       const levelUpEmbed = new MessageEmbed()
         .setTitle(`**Nivel Alcanzado** ${emojiLevelUp}`)
         .setAuthor(message.author.username, bot.user.displayAvatarURL())
@@ -401,7 +398,7 @@ module.exports = class PayCommand extends BaseCommand {
           `<@${message.author.id}> alcanzó un nuevo **Nivel**.`
         )
         .addField("**Nivel Alcanzado**", `Nuevo nivel **${actualAuthorLevel}**`)
-        .setFooter("Estadísticas de niveles Internacional de Synchronous")
+        .setFooter("Estadísticas de niveles Internacional Mundo Kyonax !")
         .setTimestamp();
       //Mensaje Embed
       embed.addField(
@@ -410,14 +407,15 @@ module.exports = class PayCommand extends BaseCommand {
       );
       embed.addField(
         "**Dinero Canjeado**",
-        `**${numberWithCommas(basePrice)}** ${emojiSynkoins} **Synkoins.**`,
+        `**${numberWithCommas(basePrice)}** ${emojiSynkoins} **Kyo Shinys.**`,
         true
       );
       embed.addField(
         `**Fondos Restantes de ${autor.displayName}**`,
-        `**${numberWithCommas(updateACoins)} ${emojiSynkoins} Synkoins.**`,
+        `**${numberWithCommas(updateACoins)} ${emojiSynkoins} Kyo Shinys.**`,
         true
       );
+      roleRewards(message,bot,actualAuthorLevel);
       levelChannel.send(levelUpEmbed);
     }
     //Envio de Mensaje Embed al canal en el que se uso el Comando

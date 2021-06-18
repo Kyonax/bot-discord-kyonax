@@ -1,6 +1,7 @@
 //Importación especifica de Metodos - RichEmbed - Perms - cautioncolor Color
 const { MessageEmbed } = require("discord.js");
 const { noneColor } = require("../../../database/utils/color/color.json");
+const { putEmoji } = require("../../utils/misc/functions");
 const { addMessageToBin } = require("../../utils/misc/bin");
 //Importación Clase de Objetos - Conector Error - Perms
 const Perms = require("../../../database/conectors/perm");
@@ -53,10 +54,10 @@ module.exports = class NewsCommand extends BaseCommand {
       .setTitle(tittle)
       .setDescription(description)  
       .attachFiles([
-        "database/multimedia/images/demo/server/BARCOLORFULL.gif",
+        "database/multimedia/images/demo/server/EMOTES_ADD_TWITTER.png",
       ])
-      .setImage("attachment://BARCOLORFULL.gif");    
+      .setImage("attachment://EMOTES_ADD_TWITTER.png");    
       
-    message.channel.send(embed);
+    message.channel.send(`${putEmoji(bot,"850790371428270100")} **Aquí ocurre algo interesante!! <@&849139777521057862>**`,embed);
   }
 };

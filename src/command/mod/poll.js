@@ -2,7 +2,7 @@
 const { MessageEmbed } = require("discord.js");
 const {
   initObjectMember,
-  getMember,
+  getMember,putEmoji,
   replaceRoleItems,
 } = require("../../utils/misc/functions.js");
 const { goldColor } = require("../../../database/utils/color/color.json");
@@ -60,7 +60,7 @@ module.exports = class PollCommand extends BaseCommand {
     let gRole = message.guild.roles.cache.find((rol) => rol.id == role);
     //Creación del Mensaje Embed
     let embed = new MessageEmbed()
-      .setTitle(`**${autor.displayName}'s Poll 📜**`)
+      .setTitle(`Encuesta de **${autor.displayName} 📜**`)
       .setThumbnail(bot.user.displayAvatarURL())
       .setDescription(poll)
       .setColor(goldColor)
@@ -74,11 +74,11 @@ module.exports = class PollCommand extends BaseCommand {
       .setTimestamp();
 
     const encChannel = message.guild.channels.cache.find(
-      (ch) => ch.name === "⋉⧼📬⧽⋊encuestas⦊"
+      (ch) => ch.name === "encuestas"
     );
     if (!encChannel) {
       return message.guild.channels
-        .create("⋉⧼📬⧽⋊encuestas⦊", {
+        .create("encuestas", {
           type: "text",
           permissionOverwrites: [
             {
@@ -91,7 +91,7 @@ module.exports = class PollCommand extends BaseCommand {
         .catch((err) => console.log(err));
     }
 
-    encChannel.send(`Nueva encuesta para ${gRole}!!🎊`);
+    encChannel.send(`Nueva encuesta para ${gRole}!! ${putEmoji(bot,"780487068526313502")}`);
     encChannel.send(embed);
   }
 };

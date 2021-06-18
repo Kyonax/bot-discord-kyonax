@@ -91,7 +91,7 @@ module.exports = class DniCommands extends BaseCommand {
     let embed = new MessageEmbed()
       .setAuthor(`${member.displayName}'s DNI`, member.user.displayAvatarURL())
       .setDescription(
-        `${memberBiography}.\n\nLlegando a la **${message.guild.name}** el día ${joined}`
+        `${memberBiography}.\n\nLlegando a **${message.guild.name}** el día ${joined}`
       )
       .setThumbnail(member.user.displayAvatarURL())
       .addField(`${emoji} Nivel de Rol`, `${memberLevel}`, true)

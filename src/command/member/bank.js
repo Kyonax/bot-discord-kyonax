@@ -78,10 +78,10 @@ module.exports = class BankCommand extends BaseCommand {
       .addField("**Usuario**", `**[${member.displayName}]**`, true)
       .addField(
         " **Fondos**",
-        `**${numberWithCommas(memberCoins)} ${emoji} Synkoins.**`,
+        `**${numberWithCommas(memberCoins)} ${emoji} Kyo Shinys.**`,
         true
       )
-      .setFooter("Banco Internacional de Synchronous")
+      .setFooter("Banco Internacional de Mundo Kyonax ! ")
       .setTimestamp();
     //Lectura del Mensaje - Envío al canal Destinado - Mensaje que usa el Comando Eliminado
     message.channel.send(embed).then((msg) => {

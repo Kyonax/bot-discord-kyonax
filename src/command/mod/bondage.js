@@ -39,7 +39,7 @@ module.exports = class BondageCommand extends BaseCommand {
     );
     let mutetime = args[1];
     let muterole = message.guild.roles.cache.find(
-      (rol) => rol.name === "Muted"
+      (rol) => rol.name === "ロロ—- ホ MUTEADO :: 🏮"
     );
     let ObjectAutor = null;
     ObjectAutor = initObjectMember(
@@ -55,11 +55,10 @@ module.exports = class BondageCommand extends BaseCommand {
     if (member.id === message.author.id)
       return err.noValidTargetBondage(bot, message);
     if (!mutetime) return err.noTimeDigit(bot, message);
-    if (member.roles.cache.get("623715872506118154"))
+    if (member.roles.cache.get("766816088024940584"))
       return perm.cantCatchSynks(bot, message);
     //Inicialización de Emojis y su Uso respectivo
-    let emoji = putEmoji(bot, synchronous.emojiID[0].caution);
-    if (message.guild.id != synchronous.guildID) emoji = "⚠";
+    let emoji = putEmoji(bot, synchronous.emojiID[0].caution);    
     //Embed Usuario Muteado para el Comando
     let muteEmbed = new MessageEmbed()
       .setTitle(`Bondage ${emoji}`)
