@@ -4,26 +4,26 @@
   <img src="https://i.imgur.com/EJSWafI.png">
     <br>
     <a href="https://github.com/Kyonax/bot-discord-kyonax"style="text-decoration: none">
-    <img src="https://img.shields.io/github/languages/code-size/Kyonax/bot-discord-synchronous">
+    <img src="https://img.shields.io/github/languages/code-size/Kyonax/bot-discord-kyonax">
     </a>
     <a href="https://github.com/Kyonax/bot-discord-kyonax"style="text-decoration: none">
-    <img src="https://img.shields.io/github/languages/top/Kyonax/bot-discord-synchronous">
+    <img src="https://img.shields.io/github/languages/top/Kyonax/bot-discord-kyonax">
     </a>    
     <a href="https://github.com/Kyonax/bot-discord-kyonax"style="text-decoration: none">
-    <img src="https://img.shields.io/github/contributors/Kyonax/bot-discord-synchronous">
+    <img src="https://img.shields.io/github/contributors/Kyonax/bot-discord-kyonax">
     </a>
     <a href="https://github.com/Kyonax/bot-discord-kyonax"style="text-decoration: none">
-    <img src="https://img.shields.io/github/last-commit/Kyonax/bot-discord-synchronous">
+    <img src="https://img.shields.io/github/last-commit/Kyonax/bot-discord-kyonax">
     </a>
     <br>
     <a href="https://kyonax.link/twitch"style="text-decoration: none">
-    <img src="https://img.shields.io/twitch/status/synk_kyonax">
+    <img src="https://img.shields.io/twitch/status/kyonax_on">
     </a>
     <a href="https://kyonax.link/discord"style="text-decoration: none">
-    <img src="https://img.shields.io/discord/623715606184722442?color=blueviolet&label=Server&logo=discord">
+    <img src="https://img.shields.io/discord/763464848457072701?color=blueviolet&label=Server&logo=discord">
     </a>
     <a href="https://kyonax.link/facebook"style="text-decoration: none">
-    <img src="https://img.shields.io/badge/MrKyonax-facebook-blue">
+    <img src="https://img.shields.io/badge/Kyonax-facebook-blue">
     </a>
     <a href="https://kyonax.link/bot_kyonax"style="text-decoration: none">
     <img src="https://img.shields.io/badge/Donate-PayPal-green.svg">
