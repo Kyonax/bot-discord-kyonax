@@ -1,11 +1,12 @@
 {
-  "name": "bot-discord-synchronous",
-  "version": "1.6.0",
-  "description": "Discord bot for Synchronous Server - discord.js v12",
+  "name": "bot-discord-kyonax",
+  "version": "1.0.0",
+  "description": "Discord bot for Mundo Kyonax ! Server - discord.js v12",
   "main": "./src/bot.js",
   "keywords": [
     "discord",
-    "mta"
+    "Kyonax",
+    "Virtual GOD"
   ],
   "scripts": {
     "start": "node ./src/bot.js"
@@ -17,12 +18,12 @@
   "author": "Kyonax",
   "license": "GNU General Public License v3.0",
   "bugs": {
-    "url": "https://github.com/Kyonax/bot-discord-synchronous/issues"
+    "url": "https://github.com/Kyonax/bot-discord-kyonax/issues"
   },
-  "homepage": "https://github.com/Kyonax/bot-discord-synchronous#readme",
+  "homepage": "https://github.com/Kyonax/bot-discord-kyonax#readme",
   "dependencies": {
     "apex-api": "^3.1.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "common-tags": "^1.8.0",
     "dateformat": "^3.0.3",
     "discord.js": "^12.2.0",
