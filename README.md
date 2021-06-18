@@ -25,7 +25,7 @@
     <a href="https://kyonax.link/facebook"style="text-decoration: none">
     <img src="https://img.shields.io/badge/Kyonax-facebook-blue">
     </a>
-    <a href="https://kyonax.link/bot_kyonax"style="text-decoration: none">
+    <a href="https://kyonax.link/donation"style="text-decoration: none">
     <img src="https://img.shields.io/badge/Donate-PayPal-green.svg">
     </a>        
      <a href="https://twitter.com/intent/follow?screen_name=kyonax_on"style="text-decoration: none">
