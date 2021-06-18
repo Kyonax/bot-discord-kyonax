@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Kyonax/bot-discord-kyonax#readme",
   "dependencies": {
     "apex-api": "^3.1.0",
+    "ws": ">=7.4.6",
     "axios": "^0.21.1",
     "common-tags": "^1.8.0",
     "dateformat": "^3.0.3",
@@ -35,6 +36,7 @@
     "imagemagick": "^0.1.3",
     "mysql2": "^2.1.0",
     "node-fetch": "^2.6.1",
-    "pngjs": "^5.0.0"
+    "pngjs": "^5.0.0",
+    "pm2": "5.1.0"
   }
 }
