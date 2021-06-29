@@ -1,3 +1,4 @@
 .env
+discord_database.sql
 database/mysql/schema.sql
 database/multimedia/images/barlevel
