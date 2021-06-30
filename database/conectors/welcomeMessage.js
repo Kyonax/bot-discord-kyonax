@@ -28,7 +28,7 @@ module.exports.welcomeMessage = async (member, bot) => {
         `**╭・—————— ﾘ 🍟 —- Bienvenida/Bienvenido al Servidor —-**
 ┊ **El servidor y esta comunidad tienen reglas que debes cumplir,**
 ┊ para ello te aconsejo que leas y cumplas cada regla que
-┊ aparecen en el canal <#834977673238675496>・${putEmoji(bot, "764154680582340618")}
+┊ aparecen en el canal <#763475354919895040>・${putEmoji(bot, "764154680582340618")}
 ┊ 
 ┊ Si quieres saber más acerca del servidor y como obtener
 ┊ los **Roles Premium** dirigete al canal <#763787729695014912>・${putEmoji(bot, "764154680582340618")}
