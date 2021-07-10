@@ -74,9 +74,26 @@ module.exports = class ReadyEvent extends (
         )
         .then((result) => {
           const guildID = guild.id;
-          const guildPrefix = result[0][0].cmdPrefix;
-          guildCommandPrefix.set(guildID, guildPrefix);
-          StateManager.emit("prefixFetched", guildID, guildPrefix);
+          try{
+            const guildPrefix = result[0][0].cmdPrefix;
+            guildCommandPrefix.set(guildID, guildPrefix);
+            StateManager.emit("prefixFetched", guildID, guildPrefix);
+          }catch (err){
+            try {
+              this.connection.query(
+                `INSERT INTO Guild VALUES('${guild.id}','${guild.ownerID}')`
+              );
+              this.connection.query(
+                `INSERT INTO GuildConfigurable (guildID) VALUES ('${guild.id}')`
+              );
+              console.log(
+                `\nSe ha registrado una nueva Guild de Discord en la Base de Datos\nID:${guild.id} OwnerID:${guild.ownerID}`
+              );
+            } catch (err) {
+              console.log(err);
+            }
+          }
+          
         })
         .catch((err) => console.log(err));
       //Creación de los párametros de los Usuarios por Mapas

@@ -54,10 +54,10 @@ module.exports = class NewsCommand extends BaseCommand {
       .setTitle(tittle)
       .setDescription(description)  
       .attachFiles([
-        "database/multimedia/images/demo/server/EMOTES_ADD_TWITTER.png",
+        "database/multimedia/images/demo/server/Roles.png",
       ])
-      .setImage("attachment://EMOTES_ADD_TWITTER.png");    
+      .setImage("attachment://Roles.png");    
       
-    message.channel.send(`${putEmoji(bot,"850790371428270100")} **Aquí ocurre algo interesante!! <@&849139777521057862>**`,embed);
+    message.channel.send(embed);
   }
 };

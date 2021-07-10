@@ -44,26 +44,15 @@ module.exports = class HugCommand extends BaseCommand {
     //Inicialización de Variables Usuario - Gifs - Selección de Gifs
     const member = getMember(message, args.join(" "));
     let replies = [
-      "https://media.giphy.com/media/du8yT5dStTeMg/giphy.gif",
-      "https://media.giphy.com/media/143v0Z4767T15e/giphy.gif",
-      "https://media.giphy.com/media/lrr9rHuoJOE0w/giphy.gif",
-      "https://media.giphy.com/media/qscdhWs5o3yb6/giphy.gif",
-      "https://media1.tenor.com/images/4ba5c04950f4a7dfc18646d372619212/tenor.gif?itemid=14566836",
-      "https://i.pinimg.com/originals/02/7e/0a/027e0ab608f8b84a25b2d2b1d223edec.gif",
-      "https://media1.tenor.com/images/6262924b0b8cd9e0089c77d80d30e0c9/tenor.gif?itemid=15793133",
-      "https://i.pinimg.com/originals/ab/58/a8/ab58a8f3ad91fd62911f84bf3d54127c.gif",
-      "https://i.pinimg.com/originals/f9/e9/34/f9e934cddfd6fefe0079ab559ef32ab4.gif",
-      "https://i.pinimg.com/originals/6d/e7/d8/6de7d824d79a92955e312e3d84d71b82.gif",
-      "https://data.whicdn.com/images/203117037/original.gif",
-      "https://cdn.lowgif.com/full/8dedb4ccc95e70c7-anime-hug-gif-google-search-cl-n-n-m-pinterest.gif",
-      "https://media.giphy.com/media/KL7xA3fLx7bna/giphy.gif",
-      "https://media.giphy.com/media/16bJmyPvRbCDu/giphy.gif",
-      "https://media.giphy.com/media/gnXG2hODaCOru/giphy.gif",
-      "https://media.giphy.com/media/JzsG0EmHY9eKc/giphy.gif",
-      "https://media.giphy.com/media/ew8hN0QnkoaOdTn2Eo/giphy.gif",
-      "https://media.giphy.com/media/4vDQtFRvx5ZSM/giphy.gif",
-      "https://media.giphy.com/media/3oz8xt8ebVWCWujyZG/giphy.gif",
-      "https://media.giphy.com/media/4No2q4ROPXO7T6NWhS/giphy.gif",
+      "https://media1.tenor.com/images/94989f6312726739893d41231942bb1b/tenor.gif?itemid=14106856",
+      "https://media.tenor.com/images/67013cec62726a4e689d132bc8ed5553/tenor.gif",
+      "https://media.tenor.com/images/784a53ff511683adb75a6b617f4c4dc8/tenor.gif",
+      "https://media.tenor.com/images/928f8ed6379adc1c599873877b2f5880/tenor.gif",
+      "https://media.tenor.com/images/91a0613ab7a54f13cc40ae0dadcbc63b/tenor.gif",
+      "https://media.tenor.com/images/036041973fd7cbed1c4c03a3144a7b87/tenor.gif",
+      "https://media.tenor.com/images/12ce5c56f8cf49aa0ad21df72eb0eeb1/tenor.gif",
+      "https://media.tenor.com/images/7492d9aa1113225da3c8e635e7c711b4/tenor.gif",
+      "https://media.tenor.com/images/9fd943a4a242c0765122f5aedf3882c2/tenor.gif"
     ];
     let result = Math.floor(Math.random() * replies.length);
     //Mensaje Embed
