@@ -9,6 +9,8 @@ const {
   StatusLanguageRoles,
   StatusLanguageUsers,
 } = require("../../utils/languages/languageStatus");
+const {putEmoji} = require("../../utils/misc/functions")
+const {synchronous} = require("../../../database/utils/emojis/emojis.json")
 //Importación de cuerpo de Eventos e importación de Conexión Base de Datos
 const BaseEvent = require("../../utils/structure/BaseEvent");
 const StateManager = require("../../utils/database/StateManager");
@@ -22,6 +24,20 @@ const bankGuilds = new Map();
 const rolePlayMembers = new Map();
 const guildsRoleplay = new Map();
 //Exportación de Evento ready
+//NPM Twitter Stream
+require("dotenv").config();
+const Twit = require("twit");
+//Object
+var T = new Twit({
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token: process.env.TWITTER_ACCESS_TOKEN,
+  access_token_secret: process.env.TWITTER_ACCES_TOKEN_SECRET,
+  timeout_ms: 60 * 1000,
+  strictSSL: true,
+});
+//Forex Twitter
+var kyonax_twitter_id = process.env.TWITTER_KYONAX_ID;
 module.exports = class ReadyEvent extends (
   BaseEvent
 ) {
@@ -31,7 +47,34 @@ module.exports = class ReadyEvent extends (
     //Conexión con la Base de Datos por medio de StateManager
     this.connection = StateManager.connection;
   }
-  async run(bot) {
+  async run(bot) {    
+    //Twitter API
+    var stream_twitter = T.stream("statuses/filter", {
+      follow: [kyonax_twitter_id],
+    });
+
+    stream_twitter.on("tweet", function (tweet) {
+      if (tweet.user.id == process.env.TWITTER_KYONAX_ID) {
+        var url_kyo_tweet =
+          "https://twitter.com/" +
+          tweet.user.screen_name +
+          "/status/" +
+          tweet.id_str;
+        try {
+          let channel = bot.channels
+            .fetch(process.env.DISCORD_CHANNEL_ANNOUNCEMENTS_ID)
+            .then((channel) => {
+              channel.send(`${putEmoji(bot,"849623550164074516")} ¡Nuevo tweet de **kyonax_on** ¿Qué opinas <@&767827039704318042>? ${url_kyo_tweet}`);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+
     //Mensaje por Consola Bot Iniciado
     console.log(`${bot.user.tag} iniciado`);   
     //Variables

@@ -63,9 +63,9 @@ module.exports = class NewsCommand extends BaseCommand {
       )
       .setFooter("Central de Periodismo Mundo Kyonax");
       embed.attachFiles([
-        "database/multimedia/gifs/embeds/BAR.gif",
+        "database/multimedia/gifs/embeds/BARCYANLIGHT.gif",
       ]);
-      embed.setImage("attachment://BAR.gif");
+      embed.setImage("attachment://BARCYANLIGHT.gif");
       const serverChannel = message.guild.channels.cache.find(
         (ch) => ch.name === "nuevos-anuncios"
       );
