@@ -1,80 +1,56 @@
 module.exports = {
   StatusLanguageUsers: function (array) {
     array = [
-      "Users",
-      "Usuarios",
-      "ユーザー",
-      "Пользователи",
-      "Utenti",
-      "Benutzer",
-      "用户数",
+      "Miembros Totales",
+      "Usuarios"      
     ];
 
     let result = array[Math.floor(Math.random() * array.length)];
     return result;
   },
   StatusLanguageChannels: function (array) {
-    array = [
-      "频道",
-      "Channels",
+    array = [      
       "Canales",
-      "チャンネル",
-      "Каналес",
-      "Kanäle",
+      "Canales Totales"
     ];
     let result = array[Math.floor(Math.random() * array.length)];
     return result;
   },
   StatusLanguageRoles: function (array) {
-    array = ["Roles", "Rollen", "Роли", "役割", "的角色", "Ruoli"];
+    array = ["Roles", "Roles Totales"];
     let result = array[Math.floor(Math.random() * array.length)];
     return result;
   },
   StatusLanguageGuilds: function (array) {
     array = [
-      "Guilds",
-      "Gremios",
-      "公会",
-      "ギルド",
-      "Gilde",
-      "Гильдий",
-      "Gilden",
+      "Guilds","Servidores"
     ];
     let result = array[Math.floor(Math.random() * array.length)];
     return result;
   },
   StatusLanguageEmojis: function (array) {
-    array = [
-      "Смайликов",
-      "Emoticonos",
-      "Emoticons",
+    array = [      
       "Emojis",
-      "絵文字",
-      "表情符号",
-      "Smileys",
+      "Emotes"
     ];
     let result = array[Math.floor(Math.random() * array.length)];
     return result;
   },
   StatusLanguageGuild: function (array) {
-    array = ["Guild", "Gremio", "Gilda", "公会", "ギルド", "Гильдия", "Gilde"];
+    array = ["Guild", "Servidor"];
     let result = array[Math.floor(Math.random() * array.length)];
     return result;
   },
   StatusLanguageRole: function (array) {
-    array = ["Rolle", "Rol", "Ruolo", "Роль", "役割", "角色", "وظيفة", "Role"];
+    array = ["Rol"];
     let result = array[Math.floor(Math.random() * array.length)];
     return result;
   },
-  StatusLanguageHelp: function (array) {
+  StatusLanguageHelp: function (array,prefix) {
     array = [
-      "Usa s!help para ver los Comandos. | Synchronous",
-      "Use s!help to see the Commands. | Synchronous",
-      "s!help を使用してコマンドを表示します. | Synchronous",
-      "使用 s!help 查看命令. | Synchronous",
-      "Используйте s!help чтобы увидеть команды. | Synchronous",
-      "Verwenden Sie s!help, um die Befehle anzuzeigen. | Synchronous",
-      "Usa s!help per visualizzare i comandi. | Synchronous",
+      "Para poder usar el Bot compra tu acceso en Patreon.",
+      "Entra al Servidor de Soporte para una ayuda Personalizada.",
+      "Adquiere tus Marcos personalizados en Patreon."     
     ];
     let result = array[Math.floor(Math.random() * array.length)];
     return result;

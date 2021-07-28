@@ -53,8 +53,8 @@ module.exports = class ReadyEvent extends (
       follow: [kyonax_twitter_id],
     });
 
-    stream_twitter.on("tweet", function (tweet) {
-      if (tweet.user.id == process.env.TWITTER_KYONAX_ID) {
+    stream_twitter.on("tweet", function (tweet) {      
+      if (tweet.user.id == process.env.TWITTER_KYONAX_ID && tweet.in_reply_to_screen_name == null) {
         var url_kyo_tweet =
           "https://twitter.com/" +
           tweet.user.screen_name +
@@ -298,9 +298,7 @@ module.exports = class ReadyEvent extends (
       `${numberOfEmojis} ${StatusLanguageEmojis(translate)}!!!`,
       `${
         nameOfRoles[Math.floor(Math.random() * numberOfRoles)]
-      } ${StatusLanguageRole(translate)}`,
-      `Dioses`,
-      `s!help | Synchronous`,
+      } ${StatusLanguageRole(translate)}`
     ];
     let types = ["WATCHING", "PLAYING", "LISTENING"];
     setInterval(function () {
