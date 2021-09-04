@@ -9,7 +9,16 @@ class StateManager extends EventEmitter {
     super(opts);
     connection
       .then((connection) => (this.connection = connection))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        try {
+          // do stuff with conn
+        } catch (err) {
+          console.log(`Error doing stuff: ${err.message}`);
+        } finally {
+          connection.destroy();          
+          console.log("Reactivando Conexion");
+        }
+      });
   }
 }
 //Exportando Conexión obtenida
